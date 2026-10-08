@@ -1,0 +1,6 @@
+<h1>{{titre}}</h1>
+
+<input type="text" [placeholder]="place" [(ngModel)]="nom" >
+<h2 [ngStyle]="{ 'color': textColor(), 'font-size.px': fontSize() }">{{nom}}</h2>
+<img [src]="image" alt="Image">
+<button (click)="cliquer()">Click me</button>
