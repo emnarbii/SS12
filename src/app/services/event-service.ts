@@ -1,29 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
-import { Event } from '../../models/event';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Injectable, signal } from '@angular/core';
+import { Event } from '../models/event';
 
-@Component({
-  selector: 'app-event-list',
-  imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './event-list.html',
-  styleUrl: './event-list.css',
+@Injectable({
+  providedIn: 'root',
 })
-export class EventList {
-  title = signal('Event List');
-  titre = 'list';
-  compteur = signal(0);
-  item="";
-  filtredList=signal<Event[]>([]);
-
-  ngOnInit() {
-    this.titre = 'liste des eventnements';
-    this.title.set('Liste des événement');
-    this.compteur.update((compteur) => this.compteur() + 1);
-    console.log(this.compteur());
-  }
-  favoriteList= signal<Event[]>([]);
+export class EventService {
   events=signal<Event[]>([
     {
       id: 1,
@@ -75,28 +56,17 @@ export class EventList {
     },
   ]);
 
-  // incerementNbLikes(event: Event) {
-  //   return event.nbLikes++;
-  // }
-
-
-   incerementNbLikes(event: Event) {
-    return this.events.update(events=>events.map(e=>e.id==event.id?{...e,nbLikes:e.nbLikes+1}:e))
+  getEventList():Event[]{
+    return this.events();
   }
 
-  addToFavorite(event: Event) {
-    if (!this.favoriteList().includes(event)) {
-      this.favoriteList().push(event);
-    }
-    return this.favoriteList;
+  getEventById(id:number){
+    return this.events().find(ev=>ev.id===id);
   }
 
-
- get filteredEvents() {
-    const search = this.item.toLowerCase();
-
-    return this.events().filter(event =>
-      event.category.toLowerCase().includes(search)
-    );
-  }
+  // add event
+  // update event
+  // delete event....
 }
+
+

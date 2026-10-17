@@ -8,16 +8,17 @@
 
         <!-- Image -->
         <img
-          
+          src="{{evt()?.imageUrl}}"
           class="card-img-top"
           style="height: 350px; object-fit: cover;"
+        
         >
 
         <div class="card-body">
 
           <!-- Titre -->
           <h2 class="card-title mb-3">
-           
+           {{evt()?.titre}}
           </h2>
 
           <!-- Catégories -->
@@ -26,7 +27,7 @@
           <hr>
 
           <!-- Description -->
-          <h5>Description</h5>
+          <!-- <h5> {{evt()?.description}}</h5> -->
           <p class="text-muted">
           </p>
 
@@ -34,31 +35,32 @@
           <div class="row mt-4">
 
             <div class="col-md-6 mb-3">
-              <strong>📅 Date :</strong>
+              <strong>📅 Date : {{evt()?.date}}</strong>
               <span class="ms-2">
               </span>
             </div>
 
             <div class="col-md-6 mb-3">
               <strong>📍 Lieu :</strong>
+              <<span class="ms-2"> 
+                 {{evt()?.lieu}} 
+              </span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <strong>💰 Prix : {{evt()?.prix}}</strong>
               <span class="ms-2">
               </span>
             </div>
 
             <div class="col-md-6 mb-3">
-              <strong>💰 Prix :</strong>
+              <strong>👥 Places disponibles : {{evt()?.nbPlaces}}</strong>
               <span class="ms-2">
               </span>
             </div>
 
             <div class="col-md-6 mb-3">
-              <strong>👥 Places disponibles :</strong>
-              <span class="ms-2">
-              </span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <strong>❤️ Likes :</strong>
+              <strong>❤️ Likes :   {{evt()?.nbLikes}}</strong>
               <span class="ms-2">
               </span>
             </div>

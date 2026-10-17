@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { Home } from './core/home/home';
-import { EventList } from './core/event-list/event-list';
 import { Notfound } from './notfound/notfound';
-import { EventDetails } from './core/event-details/event-details';
 
-export const r: Routes = [
-  { path: '', redirectTo: 'events', pathMatch: 'full' },
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
-  { path: 'events', component: EventList },
-  {path:"events/:id", component:EventDetails},
+  {
+    path: 'events', //   :events=>list,   events/1=> details,  events/add=> formd'ajoput.....
+    loadChildren: () => import('./features/event/event.routes').then((m) => m.event_routes),
+  },
   { path: '**', component: Notfound },
 ];
