@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="row">
+    <form [formGroup]="eventForm">
+      <!-- Titre -->
+      <div class="mb-3">
+        <label for="titre" class="form-label">Titre</label>
+        <input type="text" class="form-control" id="titre" formControlName="titre" />
+
+        @if (eventForm.get('titre')?.touched && eventForm.get('titre')?.invalid) {
+          <div>
+            @if (eventForm.get('titre')?.errors?.['required']) {
+              <small [ngStyle]="{color:'red'}">Le titre est obligatoire.</small>
+            }
+            @if (eventForm.get('titre')?.errors?.['minlength']) {
+              <small [ngStyle]="{color:'red'}">Le titre doit contenir au moins 3 caractères.</small>
+            }
+            @if (eventForm.get('titre')?.errors?.['maxlength']) {
+              <small [ngStyle]="{color:'red'}">Le titre ne doit pas dépasser 25 caractères.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          rows="3"
+          formControlName="description"
+        ></textarea>
+
+        @if (eventForm.get('description')?.touched && eventForm.get('description')?.invalid) {
+          <div>
+            @if (eventForm.get('description')?.errors?.['required']) {
+              <small>La description est obligatoire.</small>
+            }
+            @if (eventForm.get('description')?.errors?.['minlength']) {
+              <small>La description doit contenir au moins 10 caractères.</small>
+            }
+            @if (eventForm.get('description')?.errors?.['maxlength']) {
+              <small>La description ne doit pas dépasser 50 caractères.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Catégorie -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Catégorie</label>
+        <select class="form-select" id="category" formControlName="category">
+          <option value="">Choisir une catégorie</option>
+          @for (c of categories; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+
+        @if (
+          eventForm.get('category')?.touched && eventForm.get('category')?.errors?.['required']
+        ) {
+          <small> Veuillez sélectionner une catégorie. </small>
+        }
+      </div>
+
+      <!-- Date -->
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" formControlName="date" />
+
+        @if (eventForm.get('date')?.touched && eventForm.get('date')?.errors?.['required']) {
+          <small > La date est obligatoire. </small>
+        }
+      </div>
+
+      <!-- Lieu -->
+      <div class="mb-3">
+        <label for="lieu" class="form-label">Lieu</label>
+        <input type="text" class="form-control" id="lieu" formControlName="lieu" />
+
+        @if (eventForm.get('lieu')?.touched && eventForm.get('lieu')?.errors?.['required']) {
+          <small > Le lieu est obligatoire. </small>
+        }
+      </div>
+
+      <!-- Prix -->
+      <div class="mb-3">
+        <label for="prix" class="form-label">Prix</label>
+        <input type="number" class="form-control" id="prix" formControlName="prix" />
+
+        @if (eventForm.get('prix')?.touched && eventForm.get('prix')?.invalid) {
+          <div >
+            @if (eventForm.get('prix')?.errors?.['required']) {
+              <small>Le prix est obligatoire.</small>
+            }
+            @if (eventForm.get('prix')?.errors?.['min']) {
+              <small  [ngStyle]="{color:'red'}">Le prix doit être supérieur ou égal à 0.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Nombre de places -->
+      <div class="mb-3">
+        <label for="nbPlaces" class="form-label">Nombre de places</label>
+        <input type="number" class="form-control" id="nbPlaces" formControlName="nbPlaces" />
+
+        @if (eventForm.get('nbPlaces')?.touched && eventForm.get('nbPlaces')?.invalid) {
+          <div>
+            @if (eventForm.get('nbPlaces')?.errors?.['required']) {
+              <small>Le nombre de places est obligatoire.</small>
+            }
+            @if (eventForm.get('nbPlaces')?.errors?.['min']) {
+              <small>Le nombre de places doit être au moins égal à 10.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Image -->
+      <div class="mb-3">
+        <label for="imageUrl" class="form-label">Image</label>
+        <input type="text" class="form-control" id="imageUrl" formControlName="imageUrl" />
+      </div>
+
+      <!-- Bouton -->
+      <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Ajouter</button>
+    </form>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import { EventList } from './features/event/event-list/event-list';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, Home, EventList],
+  imports: [RouterOutlet, Header, Footer, Home],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

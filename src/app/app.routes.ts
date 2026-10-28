@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './core/home/home';
-import { Notfound } from './notfound/notfound';
+import { Notfound } from './core/notfound/notfound';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Event } from '../../../models/event';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { EventService } from '../../../services/event-service';
+import { Card } from '../../../core/core/card/card';
 
 @Component({
   selector: 'app-event-list',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule ,FormsModule, RouterLink,Card],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })
