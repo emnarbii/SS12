@@ -24,8 +24,8 @@ export class EventService {
     return this.http.post<Event>(this.uri, event);
   }
   // update event
-  updateEvent(event: Event) {
-    return this.http.put<Event>(`${this.uri}/${event.id}`, event);
+  updateEvent(id:number,event: Event) {
+    return this.http.put<Event>(`${this.uri}/${id}`, event);
   }
   // delete event....
 

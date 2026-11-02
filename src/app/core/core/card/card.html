@@ -13,5 +13,8 @@
             <button class="btn btn-primary" routerLink="/events/{event.id}">Details</button> -->
     <!-- secon method: propoerty Binding -->
     <button class="btn btn-primary" [routerLink]="['/events', event().id]">Details</button>
+    <button class="btn btn-primary" [routerLink]="['/events/update', event().id]">update</button>
+
+    <button class="btn btn-primary" (click)="supprimer.emit(event().id)">supprimer</button>
   </div>
 </div>

@@ -7,7 +7,7 @@
 
   <div class="row">
     @for (e of events(); track e.id) {
-      <app-card [event]="e" (incLikes)="incerementNbLikes($event)"></app-card>
+      <app-card [event]="e" (incLikes)="incerementNbLikes($event)" (supprimer)="delete($event)" ></app-card>
     } @empty {
       <h2>aucun event n'est trouvé</h2>
     }

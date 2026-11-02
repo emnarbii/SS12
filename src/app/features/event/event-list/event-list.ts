@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { Event } from '../../../models/event';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EventService } from '../../../services/event-service';
 import { Card } from '../../../core/core/card/card';
 
 @Component({
   selector: 'app-event-list',
-  imports: [CommonModule ,FormsModule, RouterLink,Card],
+  imports: [CommonModule, FormsModule, RouterLink, Card],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })
@@ -18,24 +18,27 @@ export class EventList {
 
   //seconf method
   eventService = inject(EventService);
+  //inject Router to use navigate
+  router = inject(Router);
   title = signal('Event List');
   titre = 'list';
   compteur = signal(0);
   item = '';
   filtredList = signal<Event[]>([]);
-events = signal<Event[]>([]);
+  events = signal<Event[]>([]);
   ngOnInit() {
     this.titre = 'liste des eventnements';
     this.title.set('Liste des événement');
     this.compteur.update((compteur) => this.compteur() + 1);
     console.log(this.compteur());
-    this.eventService.getEventList().subscribe(data=>{
-      console.log("data is ",data)
-      this.events.set(data)})
+    this.eventService.getEventList().subscribe((data) => {
+      console.log('data is ', data);
+      this.events.set(data);
+    });
 
-    console.log(this.events)
+    console.log(this.events);
   }
-  
+
   favoriteList = signal<Event[]>([]);
 
   // incerementNbLikes(event: Event) {
@@ -53,6 +56,22 @@ events = signal<Event[]>([]);
       this.favoriteList().push(event);
     }
     return this.favoriteList;
+  }
+
+  delete(id: number) {
+    this.eventService.delete(id).subscribe({
+      next: () => {
+        // Mettre à jour le signal events
+        this.events.update((liste) => liste.filter((e) => e.id !== id));
+
+        alert('Événement supprimé avec succès !');
+      },
+
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Impossible de supprimer cet événement');
+      },
+    });
   }
 
   // get filteredEvents() {

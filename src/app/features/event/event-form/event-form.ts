@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -21,11 +21,15 @@ export class EventForm {
   fb = inject(FormBuilder);
   eventService = inject(EventService);
   router = inject(Router);
+  id = input.required({ transform: numberAttribute });
+
   item1 = new FormControl('', [Validators.required, Validators.minLength(3)]); // un champ input qu'on peut controller sa valeur
   eventForm!: FormGroup;
   eventFB!: FormGroup;
   categories: String[] = ['conf', 'seminaire', 'réunion', 'autre'];
   constructor(private FB: FormBuilder) {
+
+    // form avec form group
     this.eventForm = new FormGroup({
       titre: new FormControl('', [
         Validators.required,
@@ -47,7 +51,7 @@ export class EventForm {
     });
 
     console.log(this.eventForm.controls['titre']);
-
+ // form avec formBuilder
     this.eventFB = this.fb.group({
       titre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
@@ -59,6 +63,18 @@ export class EventForm {
       category: ['', Validators.required],
       nbLikes: ['0'],
     });
+
+
+//est exécuté si id existe
+    effect(() => {
+      const id = this.id();
+      if (id !== undefined) {
+        this.eventService.getEventById(id).subscribe((event) => {
+         // remplir le formulaire directement avec les valeurs de l'event
+          this.eventForm.patchValue(event);
+        });
+      }
+    });
   }
 
   get description() {
@@ -66,8 +82,16 @@ export class EventForm {
   }
 
   submit() {
-    return this.eventService
+// si id existe on fait l'update
+    if(this.id()){
+      return this.eventService.updateEvent(this.id(),this.eventForm.value).subscribe(
+        () => this.router.navigate(['/events']))
+    }else{ 
+
+      //si non on fait l'ajout
+      return this.eventService
       .addEvent(this.eventForm.value)
-      .subscribe(() => this.router.navigate(['/events']));
+      .subscribe(() => this.router.navigate(['/events']))}
+   ;
   }
 }
