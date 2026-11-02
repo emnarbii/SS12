@@ -3,15 +3,15 @@
   <div class="card-body">
     <h5 class="card-title">{{ event().titre | uppercase }}</h5>
     <p class="card-text">{{ event().description }}</p>
-    <!-- <button class="btn btn-primary" (click)="incerementNbLikes(event)">
-      <p>{{ event.nbLikes }}</p>
+    <button class="btn btn-primary" (click)="incLikes.emit(event())">
+      <p>{{ event().nbLikes }}</p>
       like
-    </button> -->
+    </button>
     <!-- <button class="btn btn-primary" (click)="addToFavorite(event)">add to favorite</button> -->
 
     <!-- first method: interpolation
             <button class="btn btn-primary" routerLink="/events/{event.id}">Details</button> -->
     <!-- secon method: propoerty Binding -->
-    <!-- <button class="btn btn-primary" [routerLink]="['/events', event.id]">Details</button> -->
+    <button class="btn btn-primary" [routerLink]="['/events', event().id]">Details</button>
   </div>
 </div>

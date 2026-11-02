@@ -1,0 +1,40 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "titre": "IT",
+      "description": "bghgghggggggggggggg",
+      "date": "22-12-2026",
+      "lieu": "ariana",
+      " prix": 123,
+      "imageUrl": "images/event.png",
+      "nbPlaces": 100,
+      " category": "conf",
+      "nbLikes": 10
+    },
+    {
+      "id": "2",
+      "titre": "Gestion",
+      "description": "bghgghggggggggggggg",
+      "date": "22-12-2026",
+      "lieu": "ariana",
+      " prix": 123,
+      "imageUrl": "images/event.png",
+      "nbPlaces": 100,
+      " category": "conf",
+      "nbLikes": 10
+    },
+    {
+      "id": "7606",
+      "titre": "hhhhhhh",
+      "description": "hhhhhhhhhhhhhhhhh",
+      "date": "2026-10-31",
+      "lieu": "bizerte",
+      "prix": 200,
+      "imageUrl": "images/event.png",
+      "nbPlaces": 10,
+      "category": "seminaire",
+      "nbLikes": "0"
+    }
+  ]
+}

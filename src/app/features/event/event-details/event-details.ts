@@ -20,15 +20,17 @@ export class EventDetails {
     private act: ActivatedRoute,
     private service: EventService,
   ) {
-    effect(() => this.eventD.set(this.eventService.getEventById(this.id())));
-  } //injector va instancier/ crer l'instance ActivatedRoute act= new ActivatedRoute
+    effect(() => {
+      next: this.eventService.getEventById(this.id()).subscribe((event) => this.eventD.set(event));
+      error: () => console.error('event non trouvé');
+    });
+  }
 
-  evt = computed(() => this.eventService.getEventById(this.id()));
+  //injector va instancier/ crer l'instance ActivatedRoute act= new ActivatedRoute
+
+  // evt = computed(() => this.eventService.getEventById(this.id()));
   ngOnInit() {
     console.log(this.act);
     this.idActivatedRoute = this.act.snapshot.params['id'];
-
-    // console.log( " l id est  ",  this.id());
-    // console.log()
   }
 }

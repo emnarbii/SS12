@@ -23,14 +23,19 @@ export class EventList {
   compteur = signal(0);
   item = '';
   filtredList = signal<Event[]>([]);
-
+events = signal<Event[]>([]);
   ngOnInit() {
     this.titre = 'liste des eventnements';
     this.title.set('Liste des événement');
     this.compteur.update((compteur) => this.compteur() + 1);
     console.log(this.compteur());
+    this.eventService.getEventList().subscribe(data=>{
+      console.log("data is ",data)
+      this.events.set(data)})
+
+    console.log(this.events)
   }
-  events = signal(this.eventService.getEventList());
+  
   favoriteList = signal<Event[]>([]);
 
   // incerementNbLikes(event: Event) {
@@ -38,9 +43,9 @@ export class EventList {
   // }
 
   incerementNbLikes(event: Event) {
-    return this.events.update((events) =>
-      events.map((e) => (e.id == event.id ? { ...e, nbLikes: e.nbLikes + 1 } : e)),
-    );
+    // return this.events.update((events) =>
+    //   events.map((e) => (e.id == event.id ? { ...e, nbLikes: e.nbLikes + 1 } : e)),
+    // );
   }
 
   addToFavorite(event: Event) {
@@ -50,9 +55,9 @@ export class EventList {
     return this.favoriteList;
   }
 
-  get filteredEvents() {
-    const search = this.item.toLowerCase();
+  // get filteredEvents() {
+  //   const search = this.item.toLowerCase();
 
-    return this.events().filter((event) => event.category.toLowerCase().includes(search));
-  }
+  //   return this.events().filter((event) => event.category.toLowerCase().includes(search));
+  // }
 }

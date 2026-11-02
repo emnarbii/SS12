@@ -9,13 +9,14 @@
         @if (eventForm.get('titre')?.touched && eventForm.get('titre')?.invalid) {
           <div>
             @if (eventForm.get('titre')?.errors?.['required']) {
-              <small [ngStyle]="{color:'red'}">Le titre est obligatoire.</small>
+              <small>Le titre est obligatoire.</small>
+              <!--[ngStyle]="{color:'red'}"  -->
             }
             @if (eventForm.get('titre')?.errors?.['minlength']) {
-              <small [ngStyle]="{color:'red'}">Le titre doit contenir au moins 3 caractères.</small>
+              <small>Le titre doit contenir au moins 3 caractères.</small>
             }
             @if (eventForm.get('titre')?.errors?.['maxlength']) {
-              <small [ngStyle]="{color:'red'}">Le titre ne doit pas dépasser 25 caractères.</small>
+              <small>Le titre ne doit pas dépasser 25 caractères.</small>
             }
           </div>
         }
@@ -31,15 +32,15 @@
           formControlName="description"
         ></textarea>
 
-        @if (eventForm.get('description')?.touched && eventForm.get('description')?.invalid) {
+        @if (description?.touched && description?.invalid) {
           <div>
-            @if (eventForm.get('description')?.errors?.['required']) {
+            @if (description?.errors?.['required']) {
               <small>La description est obligatoire.</small>
             }
-            @if (eventForm.get('description')?.errors?.['minlength']) {
+            @if (description?.errors?.['minlength']) {
               <small>La description doit contenir au moins 10 caractères.</small>
             }
-            @if (eventForm.get('description')?.errors?.['maxlength']) {
+            @if (description?.errors?.['maxlength']) {
               <small>La description ne doit pas dépasser 50 caractères.</small>
             }
           </div>
@@ -69,7 +70,7 @@
         <input type="date" class="form-control" id="date" formControlName="date" />
 
         @if (eventForm.get('date')?.touched && eventForm.get('date')?.errors?.['required']) {
-          <small > La date est obligatoire. </small>
+          <small> La date est obligatoire. </small>
         }
       </div>
 
@@ -79,7 +80,7 @@
         <input type="text" class="form-control" id="lieu" formControlName="lieu" />
 
         @if (eventForm.get('lieu')?.touched && eventForm.get('lieu')?.errors?.['required']) {
-          <small > Le lieu est obligatoire. </small>
+          <small> Le lieu est obligatoire. </small>
         }
       </div>
 
@@ -89,12 +90,12 @@
         <input type="number" class="form-control" id="prix" formControlName="prix" />
 
         @if (eventForm.get('prix')?.touched && eventForm.get('prix')?.invalid) {
-          <div >
+          <div>
             @if (eventForm.get('prix')?.errors?.['required']) {
               <small>Le prix est obligatoire.</small>
             }
             @if (eventForm.get('prix')?.errors?.['min']) {
-              <small  [ngStyle]="{color:'red'}">Le prix doit être supérieur ou égal à 0.</small>
+              <small>Le prix doit être supérieur ou égal à 0.</small>
             }
           </div>
         }
@@ -124,7 +125,14 @@
       </div>
 
       <!-- Bouton -->
-      <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Ajouter</button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="eventForm.invalid"
+        (click)="submit()"
+      >
+        Ajouter
+      </button>
     </form>
   </div>
 </div>

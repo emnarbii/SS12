@@ -6,10 +6,10 @@
   <button routerLink="/events/add">add new event</button>
 
   <div class="row">
-    @for (event of filteredEvents; track event.id) {
-      <app-card [event]="event"></app-card>
+    @for (e of events(); track e.id) {
+      <app-card [event]="e" (incLikes)="incerementNbLikes($event)"></app-card>
     } @empty {
-      <h2>aucun event n'est</h2>
+      <h2>aucun event n'est trouvé</h2>
     }
   </div>
   <div class="col">
@@ -21,3 +21,16 @@
     </ul>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

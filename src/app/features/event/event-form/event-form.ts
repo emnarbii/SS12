@@ -8,16 +8,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { disabled } from '@angular/forms/signals';
-import { NgStyle } from '../../../../../node_modules/@angular/common/types/_common_module-chunk';
+import { EventService } from '../../../services/event-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-form',
-  imports: [ReactiveFormsModule, FormsModule, NgStyle], //FormsModule pour creer des formulaires driven
+  imports: [ReactiveFormsModule, FormsModule], //FormsModule pour creer des formulaires driven
   templateUrl: './event-form.html',
   styleUrl: './event-form.css',
 })
 export class EventForm {
   fb = inject(FormBuilder);
+  eventService = inject(EventService);
+  router = inject(Router);
   item1 = new FormControl('', [Validators.required, Validators.minLength(3)]); // un champ input qu'on peut controller sa valeur
   eventForm!: FormGroup;
   eventFB!: FormGroup;
@@ -60,5 +63,11 @@ export class EventForm {
 
   get description() {
     return this.eventForm.get('description');
+  }
+
+  submit() {
+    return this.eventService
+      .addEvent(this.eventForm.value)
+      .subscribe(() => this.router.navigate(['/events']));
   }
 }
